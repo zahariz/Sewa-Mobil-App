@@ -12,18 +12,35 @@ use Illuminate\View\View;
 
 class RentalTransactionController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $data = RentalTransaction::with(['user', 'mobil'])->get();
-        // dd($data);
-        return view("rental.index", [
-            "rental" => $data
-        ]);
+        $query = RentalTransaction::with(['user', 'mobil']);
+
+        // Cek apakah ada parameter pencarian yang diteruskan melalui URL
+        if ($request->has('search')) {
+            // Dapatkan nilai pencarian dari parameter 'search'
+            $searchTerm = $request->input('search');
+
+            // Filter berdasarkan kriteria pencarian
+            $query->whereHas('user', function ($query) use ($searchTerm) {
+                $query->where('name', 'like', '%' . $searchTerm . '%');
+            })->orWhereHas('mobil', function ($query) use ($searchTerm) {
+                $query->where('merek', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('model', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('nomor_plat', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        // Ambil data rental transactions setelah diterapkan pencarian (jika ada)
+        $rental = $query->get();
+
+        // Kirim data rental transactions ke tampilan Blade
+        return view('rental.index', compact('rental'));
     }
 
     public function create(): View
     {
-        $cars = Car::all();
+        $cars = Car::where('stock', '>=', 1)->get();
         return view("rental.create", [
             "cars" => $cars
         ]);
@@ -46,5 +63,34 @@ class RentalTransactionController extends Controller
         $cars->save();
 
         return Redirect::route('rental.cars.index')->with('status', 'Car berhasil disewa!');
+    }
+
+    public function return()
+    {
+        $transaction = RentalTransaction::with(['mobil', 'user'])->where('status', 'BORROWED')->get();
+        return view("rental.return", [
+            "transaction" => $transaction
+        ]);
+    }
+
+    public function returnCar(Request $request)
+    {
+        // Validasi input
+        // dd($request->all());
+        $request->validate([
+            'nomor_plat' => 'required|string'
+        ]);
+
+        // Ambil data transaksi berdasarkan nomor plat mobil
+        $transaction = RentalTransaction::where('id', $request->nomor_plat)->first();
+
+        $transaction->update([
+            'status' => 'RETURNED'
+        ]);
+
+        $transaction->mobil->increment('stock');
+
+
+        return Redirect::route("rental.cars.index")->with('status', 'Mobil berhasil dikembalikan');
     }
 }

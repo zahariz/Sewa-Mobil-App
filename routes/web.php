@@ -42,6 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/rental/cars', [RentalTransactionController::class, 'index'])->name('rental.cars.index');
     Route::get('/rental/cars/create', [RentalTransactionController::class, 'create'])->name('rental.cars.create');
     Route::post('/rental/cars/store', [RentalTransactionController::class, 'store'])->name('rental.cars.store');
+    Route::get('/rental/cars/return', [RentalTransactionController::class, 'return'])->name('rental.cars.return');
+    Route::delete('/rental/cars/return', [RentalTransactionController::class, 'returnCar'])->name('rental.cars.returned');
 });
 
 require __DIR__.'/auth.php';

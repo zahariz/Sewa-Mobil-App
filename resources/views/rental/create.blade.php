@@ -17,8 +17,7 @@
                             <select name="mobil_id" id="mobil_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
                                 <option selected>Choose a car</option>
                                 @foreach ($cars as $row)
-                                <option value="{{ $row->id }}" data-price="{{ $row->tarif_sewa }}">{{ $row->merek }}</option>
-
+                                <option value="{{ $row->id }}" data-price="{{ $row->tarif_sewa }}">{{ $row->merek }} - Tersisa {{ $row->stock }} Unit</option>
                                 @endforeach
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('mobil_id')" />

@@ -12,13 +12,27 @@ use Illuminate\View\View;
 
 class CarController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $data = Car::all();
+        // Ambil semua data mobil
+    $query = Car::query();
 
-        return view('cars.index', [
-            'cars' => $data
-        ]);
+    // Cek apakah ada parameter pencarian yang diteruskan melalui URL
+    if ($request->has('search')) {
+        // Dapatkan nilai pencarian dari parameter 'search'
+        $searchTerm = $request->input('search');
+
+        // Filter mobil berdasarkan kriteria pencarian
+        $query->where('merek', 'like', '%' . $searchTerm . '%')
+              ->orWhere('model', 'like', '%' . $searchTerm . '%')
+              ->orWhere('nomor_plat', 'like', '%' . $searchTerm . '%');
+    }
+
+    // Ambil data mobil setelah diterapkan pencarian (jika ada)
+    $cars = $query->get();
+
+    // Kirim data mobil ke tampilan Blade
+    return view('cars.index', compact('cars'));
     }
 
     public function create(): View

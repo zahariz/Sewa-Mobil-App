@@ -39,7 +39,7 @@
                                 <x-dropdown-link :href="route('rental.cars.create')">
                                     {{ __('Rental Car') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('profile.edit')">
+                                <x-dropdown-link :href="route('rental.cars.return')">
                                     {{ __('Return Car') }}
                                 </x-dropdown-link>
                             </x-slot>
