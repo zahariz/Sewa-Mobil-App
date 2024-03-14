@@ -1,16 +1,17 @@
 
+
 ## About Sewa Mobil App
 
-Fitur : 
-Master Car
-Authentication Login & Register
-History Sewa
-Rental Car dengan kondisi stock ada
-Return Car
+Fitur : Master Car Authentication Login & Register History Sewa Rental Car dengan kondisi stock Return Car Authentication & Blade Template : Laravel Breeze Version : Laravel 10 Riki Kurniawan
 
-Authentication & Blade Template : Laravel Breeze
-Version : Laravel 10
+- Master Car.
+- Authentication Login & Register.
+- History Sewa.
+- Rental Car dengan kondisi.
+- Return Car.
+- Untuk Authentication & Blade Template - Laravel Breeze.
+- Version : Laravel 10.
 
-Riki Kurniawan
+- Author : Riki Kurniawan
 
-
+- Portofolio - [madebyriki](https://madebyriki.com).
