@@ -32,6 +32,11 @@
                             <x-text-input id="tarif_sewa" name="tarif_sewa" type="number" class="mt-1 block w-full" :value="old('tarif_sewa', $cars->tarif_sewa)" required autofocus autocomplete="tarif_sewa" />
                             <x-input-error class="mt-2" :messages="$errors->get('tarif_sewa')" />
                         </div>
+                        <div>
+                            <x-input-label for="stock" :value="__('Stock')" />
+                            <x-text-input id="stock" name="stock" type="number" class="mt-1 block w-full" :value="old('stock', $cars->stock)" required autofocus autocomplete="stock" />
+                            <x-input-error class="mt-2" :messages="$errors->get('stock')" />
+                        </div>
 
 
                         <div class="flex items-center gap-4">

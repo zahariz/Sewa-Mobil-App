@@ -16,8 +16,6 @@ class RentalTransaction extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'mobil_id',
-        'user_id',
         'tanggal_mulai',
         'tanggal_selesai',
         'status'

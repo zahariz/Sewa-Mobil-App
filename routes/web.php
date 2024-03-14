@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
     // Rental
     Route::get('/rental/cars', [RentalTransactionController::class, 'index'])->name('rental.cars.index');
     Route::get('/rental/cars/create', [RentalTransactionController::class, 'create'])->name('rental.cars.create');
-    Route::post('/rental/cars/create', [RentalTransactionController::class, 'store'])->name('rental.cars.store');
+    Route::post('/rental/cars/store', [RentalTransactionController::class, 'store'])->name('rental.cars.store');
 });
 
 require __DIR__.'/auth.php';

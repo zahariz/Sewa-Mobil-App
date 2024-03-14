@@ -23,8 +23,9 @@ class RentalTransactionCreateRequest extends FormRequest
     {
         return [
             'mobil_id' => ['required'],
-            'tanggal_mulai' => ['required'],
-            'tanggal_selesai' => ['required'],
+            'user_id' => ['required'],
+            'tanggal_mulai' => ['required', 'date'],
+            'tanggal_selesai' => ['required', ''],
             'status' => ['required']
         ];
     }
