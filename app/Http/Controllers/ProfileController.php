@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +18,10 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $profile = Profile::where('user_id', Auth::user()->id)->first();
         return view('profile.edit', [
             'user' => $request->user(),
+            'profile' => $profile
         ]);
     }
 
@@ -26,6 +30,7 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
@@ -33,6 +38,15 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+
+        $profile = Profile::where('user_id', Auth::user()->id)->first();
+        $profile->update([
+            'name' => $request->name,
+            'alamat' => $request->alamat,
+            'sim' => $request->sim,
+            'no_telepon' => $request->no_telepon,
+        ]);
+
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

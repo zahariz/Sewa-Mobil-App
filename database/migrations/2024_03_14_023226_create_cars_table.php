@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('merek');
             $table->string('model');
-            $table->string('nomor_plat')->unique();
+            $table->string('nomor_plat');
             $table->bigInteger('tarif_sewa');
+            $table->integer('stock');
             $table->timestamps();
         });
     }

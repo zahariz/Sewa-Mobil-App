@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rental_transactions', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('mobil_id');
             $table->unsignedBigInteger('user_id');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
-            $table->string('status');
-            $table->foreign('mobil_id')->on('cars')->references('id');
+            $table->string('name');
+            $table->text('alamat')->nullable(true);
+            $table->bigInteger('no_telepon')->nullable(true);
+            $table->bigInteger('sim')->nullable(true);
             $table->foreign('user_id')->on('users')->references('id');
             $table->timestamps();
         });
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rental_transactions');
+        Schema::dropIfExists('profiles');
     }
 };

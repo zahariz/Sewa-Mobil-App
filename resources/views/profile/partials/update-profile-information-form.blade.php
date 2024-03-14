@@ -22,6 +22,21 @@
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
+        <div>
+            <x-input-label for="alamat" :value="__('Alamat')" />
+            <x-text-input id="alamat" name="alamat" type="text" class="mt-1 block w-full" :value="old('alamat', $profile->alamat)" required autofocus autocomplete="alamat" />
+            <x-input-error class="mt-2" :messages="$errors->get('alamat')" />
+        </div>
+        <div>
+            <x-input-label for="no_telepon" :value="__('No Telepon')" />
+            <x-text-input id="no_telepon" name="no_telepon" type="number" class="mt-1 block w-full" :value="old('no_telepon', $profile->no_telepon)" required autofocus autocomplete="no_telepon" />
+            <x-input-error class="mt-2" :messages="$errors->get('no_telepon')" />
+        </div>
+        <div>
+            <x-input-label for="sim" :value="__('SIM')" />
+            <x-text-input id="sim" name="sim" type="number" class="mt-1 block w-full" :value="old('sim', $profile->sim)" required autofocus autocomplete="sim" />
+            <x-input-error class="mt-2" :messages="$errors->get('sim')" />
+        </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
